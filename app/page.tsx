@@ -2,13 +2,14 @@ import Link from '@/components/site-link';
 import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
 import { SiteHeader, SiteFooter } from '@/components/site-shell';
 import { HomeSections } from '@/components/home-sections';
+import { WorkflowDemo } from '@/components/workflow-demo';
 
 export default function Home() {
   return (
     <>
       <SiteHeader />
       <main id="main" className="container">
-        <section className="hero" aria-labelledby="intro-title">
+        <section className="hero hero-with-demo" aria-labelledby="intro-title">
           <div className="hero-topline">
             <span className="eyebrow">
               <span className="status-dot" /> CONTENT × AI × SYSTEMS
@@ -19,34 +20,18 @@ export default function Home() {
             <h1 id="intro-title">
               콘텐츠를 만들고,
               <br />
-              만드는 방식을
-              <br />
-              <em>설계합니다.</em>
+              만드는 방식을 <em>설계합니다.</em>
             </h1>
             <div className="hero-note">
-              <span className="mini-label">
-                A CREATOR WHO THINKS IN SYSTEMS
-              </span>
-              <p>
-                콘텐츠 제작의 반복 과정을 구조화하고,
-                <br className="desktop-break" /> 품질 기준과 승인 절차를 갖춘
-                <br className="desktop-break" /> AI 자동화를 설계합니다.
-              </p>
+              <p>기획 · 설계 · 검수 주도 / AI 협업 구현</p>
               <a className="text-link" href="#work">
                 대표 프로젝트 살펴보기{' '}
                 <ArrowRight size={19} aria-hidden="true" />
               </a>
             </div>
           </div>
-          <div className="hero-bottom">
-            <p>
-              영상디자인의 시선으로 기획하고,
-              <br className="mobile-break" /> AI와 협업해 검증 가능한 제작
-              체계를 만듭니다.
-            </p>
-            <span>기획 · 설계 · 검수 주도 / AI 협업 구현</span>
-          </div>
         </section>
+        <WorkflowDemo />
         <section
           id="work"
           className="work-section"

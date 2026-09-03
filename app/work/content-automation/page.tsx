@@ -505,19 +505,6 @@ export default function ContentAutomation() {
                     <ArrowUpRight size={13} aria-hidden="true" />
                   </a>
                 </article>
-                <article>
-                  <span className="mini-label">NEXT EXPERIMENT / 제안</span>
-                  <h4>한국어 콘텐츠 시나리오 비교</h4>
-                  <p>
-                    CLOVA Studio의 생성형 AI 활용 환경을 후보로 검토합니다.
-                    동일한 한국어 브리프와 평가표로 비교하는 실험을 제안하며,
-                    실제 연동·성능 우위를 주장하지 않습니다.
-                  </p>
-                  <a href="https://guide.ncloud-docs.com/docs/clovastudio-overview">
-                    NAVER Cloud · CLOVA Studio 개요{' '}
-                    <ArrowUpRight size={13} aria-hidden="true" />
-                  </a>
-                </article>
               </div>
               <div className="closing-note">
                 <p>

@@ -8,6 +8,8 @@ repos:
     hooks:
       - id: check-added-large-files
         args: [--maxkb=1024]
+        # One approved, losslessly packaged video; exact hash and 12 MB cap in native tests.
+        exclude: ^public/media/workflow-result\.mp4$
       - id: check-ast
       - id: check-json
       - id: check-merge-conflict
@@ -25,3 +27,9 @@ repos:
         entry: npm run lint --
         language: system
         files: \.(js|jsx|mjs|ts|tsx|mts)$
+      - id: project-workflow-contracts
+        name: workflow behavior and approved media checks
+        entry: node --test tests/workflow-demo.test.mjs
+        language: system
+        pass_filenames: false
+        files: ^(public/media/|lib/workflow-demo\.ts$|components/workflow-demo\.tsx$|tests/workflow-demo\.test\.mjs$|\.pre-commit-config\.yaml$)
