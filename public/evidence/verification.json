@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "title": "익명화한 콘텐츠 자동화 검증 기록",
+  "verified_on": "2026-09-03",
+  "evidence_type": "synthetic_and_nonproduction_tests",
+  "publication_note": "기존 시스템에서 실행한 결과의 공개용 요약. 원본 코드, 원본 미디어, 내부 식별 정보는 포함하지 않음.",
+  "nonproduction_tests": {
+    "total": 26,
+    "passed": 26,
+    "failed": 0,
+    "areas": [
+      "평가 기록 수집·비교",
+      "파일·근거와 승인 검증",
+      "실패 항목 재시도·중복 실행 방지"
+    ],
+    "limits": "가짜 파일과 합성 입력을 사용한 코드 동작 검증. 영상 품질 평가 정확도나 실서비스 장애 복구율을 의미하지 않음."
+  },
+  "fixed_case_collection": {
+    "case_count": 10,
+    "repetitions_per_case": 3,
+    "sample_count": 30,
+    "expectation_match_count": 30,
+    "comparison": "동일한 수집 결과의 복제본을 비교한 무변경 기준 확인",
+    "comparison_status": "PASS",
+    "input_source": "기대 상태와 이벤트를 미리 주입한 합성 보고서",
+    "cases": [
+      { "name": "기준 충족", "expected": "PASS", "matches": 3 },
+      { "name": "촬영 현실감 미달", "expected": "FAIL", "matches": 3 },
+      { "name": "인물 일관성 훼손", "expected": "FAIL", "matches": 3 },
+      { "name": "음향·장면 불일치", "expected": "FAIL", "matches": 3 },
+      { "name": "근거·파일 불일치", "expected": "FAIL", "matches": 3 },
+      { "name": "호출 제한 후 복구", "expected": "PASS", "matches": 3 },
+      { "name": "공급자 오류 후 복구", "expected": "PASS", "matches": 3 },
+      { "name": "다운로드 실패 후 복구", "expected": "PASS", "matches": 3 },
+      { "name": "유효하지 않은 재시작 기록", "expected": "FAIL", "matches": 3 },
+      { "name": "이전 파일의 승인", "expected": "FAIL", "matches": 3 }
+    ],
+    "limits": "수집기의 입력 계약·집계 검증이며 실제 모델 탐지 정확도, 생성 성공률 또는 서비스 평가가 아님."
+  },
+  "streaming_benchmark": {
+    "type": "synthetic_wait_commands",
+    "trials": 1,
+    "items": 4,
+    "internal_stages_per_item": 12,
+    "wait_seconds_per_stage": 0.02,
+    "workers": 4,
+    "qa_workers": 2,
+    "heavy_stage_concurrency": 1,
+    "sequential_seconds": 2.037,
+    "streaming_seconds": 0.601,
+    "status": "PASS",
+    "limits": "순차 처리 후 항목별 이어 처리를 같은 로컬 환경에서 실행. 프로세스·스케줄링 지연을 포함한 1회 관찰이며 실제 콘텐츠 생산 시간과 무관."
+  },
+  "production_metrics": {
+    "status": "not_established",
+    "time_saving_percent": null,
+    "cost_saving_percent": null,
+    "ctr": null,
+    "retention": null,
+    "conversion": null
+  },
+  "public_reproduction": {
+    "file": "contract-demo.mjs",
+    "command": "node contract-demo.mjs",
+    "authorship": "포트폴리오용 독립 규칙 예시, AI 협업 작성",
+    "limits": "원본 자동화 코드가 아니며 위 26개 테스트·30개 입력·속도 비교를 재실행하지 않음. 항목별 품질 하한선, 파일 일치, 승인 경계, 재시도 선택의 축약된 설명만 재현."
+  }
+}
