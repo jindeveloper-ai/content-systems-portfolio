@@ -1,8 +1,13 @@
+'use client';
+
+import { useI18n } from '@/components/language-provider';
+
 import Link from '@/components/site-link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { attentionStudy, caseStudy } from '@/data/case-study';
 
 export function HomeSections() {
+  const { t } = useI18n();
   return (
     <>
       <section
@@ -11,19 +16,20 @@ export function HomeSections() {
       >
         <div>
           <span className="eyebrow">RESEARCH → MAKING → REVIEW</span>
-          <h2 id="research-title">{attentionStudy.title}</h2>
-          <p className="research-role">{attentionStudy.role}</p>
+          <h2 id="research-title">{t(attentionStudy.title)}</h2>
+          <p className="research-role">{t(attentionStudy.role)}</p>
         </div>
         <div>
-          <p className="research-summary">{attentionStudy.summary}</p>
+          <p className="research-summary">{t(attentionStudy.summary)}</p>
           <p className="research-boundary">
-            예측 주목도 ≠ 실제 시선 측정 ≠ 사용자 선호
+            {t('예측 주목도 ≠ 실제 시선 측정 ≠ 사용자 선호')}
           </p>
           <Link
             className="text-link"
             href={'/work/content-automation#' + attentionStudy.id}
           >
-            연구에서 분석 도구로 <ArrowRight size={18} aria-hidden="true" />
+            {t('연구에서 분석 도구로 ')}
+            <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </div>
       </section>
@@ -37,7 +43,7 @@ export function HomeSections() {
             How I work<span>02</span>
           </h2>
           <span className="small muted">
-            기술보다 먼저, 제작의 문제를 정의합니다
+            {t('기술보다 먼저, 제작의 문제를 정의합니다')}
           </span>
         </div>
         <div className="approach-grid">
@@ -59,9 +65,9 @@ export function HomeSections() {
             ],
           ].map(([number, title, text]) => (
             <article key={number}>
-              <span className="mini-label">{number} / PRINCIPLE</span>
-              <h3>{title}</h3>
-              <p>{text}</p>
+              <span className="mini-label">{t(number)} / PRINCIPLE</span>
+              <h3>{t(title)}</h3>
+              <p>{t(text)}</p>
             </article>
           ))}
         </div>
@@ -74,7 +80,7 @@ export function HomeSections() {
           <h2 id="evidence-title">
             Evidence, not just claims<span>03</span>
           </h2>
-          <span className="small muted">주장을 확인할 수 있는 근거</span>
+          <span className="small muted">{t('주장을 확인할 수 있는 근거')}</span>
         </div>
         <div className="evidence-grid">
           {caseStudy.evidence.map((item) => (
@@ -84,14 +90,14 @@ export function HomeSections() {
               className="evidence-card"
             >
               <div className="evidence-card-top">
-                <span className="mini-label">{item.id}</span>
-                <span className="evidence-status">{item.status}</span>
+                <span className="mini-label">{t(item.id)}</span>
+                <span className="evidence-status">{t(item.status)}</span>
               </div>
               <h3>
-                {item.title}
+                {t(item.title)}
                 <ArrowUpRight size={18} aria-hidden="true" />
               </h3>
-              <p>{item.description}</p>
+              <p>{t(item.description)}</p>
             </Link>
           ))}
         </div>
@@ -104,33 +110,34 @@ export function HomeSections() {
         <div>
           <span className="eyebrow">ABOUT MY PRACTICE</span>
           <h2 id="about-title">
-            콘텐츠의 감각과
+            {t('콘텐츠의 감각과')}
             <br />
-            시스템의 논리 사이.
+            {t('시스템의 논리 사이.')}
           </h2>
         </div>
         <div className="about-copy">
           <p>
-            콘텐츠의 기획과 표현을 고민합니다. 반복 작업에서는 요구사항을
-            정리하고, AI와 함께 구현하며, 결과가 의도에 맞는지 끝까지 검수하는
-            역할을 맡았습니다.
+            {t(
+              '콘텐츠의 기획과 표현을 고민합니다. 반복 작업에서는 요구사항을 정리하고, AI와 함께 구현하며, 결과가 의도에 맞는지 끝까지 검수하는 역할을 맡았습니다.',
+            )}
           </p>
           <p>
-            관심 분야는 LLM 기반 콘텐츠 시나리오, 제작 품질 평가, Skill·Agent를
-            활용한 업무 자동화입니다.
+            {t(
+              '관심 분야는 LLM 기반 콘텐츠 시나리오, 제작 품질 평가, Skill·Agent를 활용한 업무 자동화입니다.',
+            )}
           </p>
           <dl>
             <div>
-              <dt>역할</dt>
-              <dd>{caseStudy.role}</dd>
+              <dt>{t('역할')}</dt>
+              <dd>{t(caseStudy.role)}</dd>
             </div>
             <div>
-              <dt>작업 원칙</dt>
-              <dd>승인 경계 · 검토 가능한 근거 · 책임 있는 전달</dd>
+              <dt>{t('작업 원칙')}</dt>
+              <dd>{t('승인 경계 · 검토 가능한 근거 · 책임 있는 전달')}</dd>
             </div>
           </dl>
           <Link className="text-link" href="/work/content-automation">
-            대표 사례에서 더 알아보기{' '}
+            {t('대표 사례에서 더 알아보기')}{' '}
             <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </div>

@@ -8,7 +8,7 @@ test('existing site and page titles are preserved', () => {
     'utf8',
   );
   const detail = readFileSync(
-    new URL('../app/work/content-automation/page.tsx', import.meta.url),
+    new URL('../app/work/content-automation/layout.tsx', import.meta.url),
     'utf8',
   );
   const shell = readFileSync(

@@ -1,5 +1,7 @@
 'use client';
 
+import { useI18n } from '@/components/language-provider';
+
 import Image from 'next/image';
 import { useEffect, useReducer, useRef, useState, type DragEvent } from 'react';
 import {
@@ -41,8 +43,9 @@ function RecordedChecks({
   steps: readonly string[];
   active: number;
 }) {
+  const { t } = useI18n();
   return (
-    <ol className="demo-checks" aria-label="제작 기록 재현 단계">
+    <ol className="demo-checks" aria-label={t('제작 기록 재현 단계')}>
       {steps.map((label, index) => (
         <li
           key={label}
@@ -55,7 +58,7 @@ function RecordedChecks({
           ) : (
             <span className="demo-check-dot" aria-hidden="true" />
           )}
-          <span>{label}</span>
+          <span>{t(label)}</span>
         </li>
       ))}
     </ol>
@@ -63,6 +66,7 @@ function RecordedChecks({
 }
 
 export function WorkflowDemo() {
+  const { t } = useI18n();
   const [state, dispatch] = useReducer(transitionDemo, initialDemoState);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [draggedItem, setDraggedItem] = useState<string | null>(null);
@@ -167,8 +171,10 @@ export function WorkflowDemo() {
     >
       <div className="demo-heading">
         <div>
-          <span className="demo-kicker">INTERACTIVE CASE · 제작 과정 체험</span>
-          <h2 id="demo-title">하나의 프레임이 영상이 되기까지</h2>
+          <span className="demo-kicker">
+            {t('INTERACTIVE CASE · 제작 과정 체험')}
+          </span>
+          <h2 id="demo-title">{t('하나의 프레임이 영상이 되기까지')}</h2>
         </div>
         <div className="demo-toolbar">
           <button
@@ -180,22 +186,24 @@ export function WorkflowDemo() {
               dispatch('skip');
             }}
           >
-            완성본 바로 보기 <ArrowRight size={16} aria-hidden="true" />
+            {t('완성본 바로 보기 ')}
+            <ArrowRight size={16} aria-hidden="true" />
           </button>
           <button
             type="button"
             className="demo-reset"
             onClick={resetDemo}
-            aria-label="체험 처음부터 다시 시작"
+            aria-label={t('체험 처음부터 다시 시작')}
           >
             <RotateCcw size={17} aria-hidden="true" />
-            <span>다시 시작</span>
+            <span>{t('다시 시작')}</span>
           </button>
         </div>
       </div>
       <p className="demo-disclosure">
-        실제 제작 기록을 재현한 체험입니다. 실시간 AI 생성·파일 업로드는 하지
-        않습니다.
+        {t(
+          '실제 제작 기록을 재현한 체험입니다. 실시간 AI 생성·파일 업로드는 하지 않습니다.',
+        )}
       </p>
       <div
         className="demo-board"
@@ -214,8 +222,8 @@ export function WorkflowDemo() {
         >
           <div className="demo-node-heading">
             <span>01</span>
-            <h3>레퍼런스</h3>
-            <span className="demo-owner">기획</span>
+            <h3>{t('레퍼런스')}</h3>
+            <span className="demo-owner">{t('기획')}</span>
           </div>
           <button
             ref={referenceButton}
@@ -229,22 +237,23 @@ export function WorkflowDemo() {
               dispatch('start');
             }}
             aria-disabled={state.phase !== 'idle'}
-            aria-label="준비된 레퍼런스로 첫 프레임 제작 체험 시작"
+            aria-label={t('준비된 레퍼런스로 첫 프레임 제작 체험 시작')}
             aria-describedby="demo-input-note"
           >
             <span className="demo-file-icon">
               <Film size={31} strokeWidth={1.4} aria-hidden="true" />
             </span>
             <strong>reference.mp4</strong>
-            <span>준비된 레퍼런스 카드</span>
+            <span>{t('준비된 레퍼런스 카드')}</span>
             <span className="demo-drag-hint">
-              <Grip size={14} aria-hidden="true" /> 오른쪽으로 드래그
+              <Grip size={14} aria-hidden="true" />
+              {t(' 오른쪽으로 드래그')}
             </span>
           </button>
           <p className="demo-node-note" id="demo-input-note">
-            원본 영상은 공개하지 않고,
+            {t('원본 영상은 공개하지 않고,')}
             <br />
-            구도·동작을 참고하는 단계를 재현합니다.
+            {t('구도·동작을 참고하는 단계를 재현합니다.')}
           </p>
           <span className="demo-connector" aria-hidden="true">
             <ArrowRight size={22} />
@@ -255,18 +264,18 @@ export function WorkflowDemo() {
           className="demo-node demo-drop-zone"
           data-target={draggedItem === 'reference' && state.phase === 'idle'}
           onDrop={(event) => dropItem(event, 'frame')}
-          aria-label="첫 프레임 만들기: 레퍼런스를 놓는 곳"
+          aria-label={t('첫 프레임 만들기: 레퍼런스를 놓는 곳')}
         >
           <div className="demo-node-heading">
             <span>02</span>
-            <h3>첫 프레임</h3>
-            <span className="demo-owner">AI · 검수</span>
+            <h3>{t('첫 프레임')}</h3>
+            <span className="demo-owner">{t('AI · 검수')}</span>
           </div>
           <div className="demo-frame-slot">
             {hasFrame ? (
               frameError ? (
                 <div className="demo-media-error" role="alert">
-                  <p>프레임을 불러오지 못했습니다.</p>
+                  <p>{t('프레임을 불러오지 못했습니다.')}</p>
                   <button
                     className="demo-text-button"
                     type="button"
@@ -275,7 +284,7 @@ export function WorkflowDemo() {
                       setFrameAttempt((value) => value + 1);
                     }}
                   >
-                    이미지 다시 불러오기
+                    {t('이미지 다시 불러오기')}
                   </button>
                 </div>
               ) : (
@@ -290,7 +299,9 @@ export function WorkflowDemo() {
                     src={demoMedia.frame}
                     width={720}
                     height={1280}
-                    alt="실내에서 두 인물이 헤어스타일을 연출하는, 첫 구간 제작에 사용한 이미지"
+                    alt={t(
+                      '실내에서 두 인물이 헤어스타일을 연출하는, 첫 구간 제작에 사용한 이미지',
+                    )}
                     className="demo-first-frame"
                     unoptimized
                     draggable={false}
@@ -309,8 +320,8 @@ export function WorkflowDemo() {
                 )}
                 <span>
                   {state.phase === 'reviewing'
-                    ? '제작·검수 과정 재현 중'
-                    : '레퍼런스를 여기에 놓으세요'}
+                    ? t('제작·검수 과정 재현 중')
+                    : t('레퍼런스를 여기에 놓으세요')}
                 </span>
                 {state.phase === 'reviewing' && (
                   <span className="demo-scan-line" aria-hidden="true" />
@@ -324,15 +335,15 @@ export function WorkflowDemo() {
             <p className="demo-node-note">
               {hasFrame ? (
                 <>
-                  실제 사용한 첫 프레임
+                  {t('실제 사용한 첫 프레임')}
                   <br />
-                  <strong>총 20개 구간 중 첫 구간 예시</strong>
+                  <strong>{t('총 20개 구간 중 첫 구간 예시')}</strong>
                 </>
               ) : (
                 <>
-                  구도·인물의 일관성을 확인하고
+                  {t('구도·인물의 일관성을 확인하고')}
                   <br />
-                  영상 제작 전에 수정하기 위해.
+                  {t('영상 제작 전에 수정하기 위해.')}
                 </>
               )}
             </p>
@@ -347,10 +358,10 @@ export function WorkflowDemo() {
             disabled={state.phase !== 'idle'}
           >
             {state.phase === 'idle'
-              ? '샘플로 시작'
+              ? t('샘플로 시작')
               : state.phase === 'reviewing'
-                ? '기록 재현 중…'
-                : '첫 프레임 확인'}
+                ? t('기록 재현 중…')
+                : t('첫 프레임 확인')}
           </button>
           <span className="demo-connector" aria-hidden="true">
             <ArrowRight size={22} />
@@ -365,12 +376,12 @@ export function WorkflowDemo() {
             !frameError
           }
           onDrop={(event) => dropItem(event, 'production')}
-          aria-label="승인하고 영상 제작: 첫 프레임을 놓는 곳"
+          aria-label={t('승인하고 영상 제작: 첫 프레임을 놓는 곳')}
         >
           <div className="demo-node-heading">
             <span>03</span>
-            <h3>승인 → 제작</h3>
-            <span className="demo-owner">사람 → AI</span>
+            <h3>{t('승인 → 제작')}</h3>
+            <span className="demo-owner">{t('사람 → AI')}</span>
           </div>
           <div
             className={`demo-approval-visual ${state.phase === 'producing' ? 'is-producing' : ''}`}
@@ -378,20 +389,20 @@ export function WorkflowDemo() {
             <ShieldCheck size={34} strokeWidth={1.4} aria-hidden="true" />
             <strong>
               {state.phase === 'producing'
-                ? '영상 제작 과정 재현 중'
+                ? t('영상 제작 과정 재현 중')
                 : state.phase === 'complete'
-                  ? '제작 과정의 승인 경계'
-                  : '이 프레임으로 만들까요?'}
+                  ? t('제작 과정의 승인 경계')
+                  : t('이 프레임으로 만들까요?')}
             </strong>
-            <span>사람이 확인해야 다음 단계로</span>
+            <span>{t('사람이 확인해야 다음 단계로')}</span>
           </div>
           {state.phase === 'producing' ? (
             <RecordedChecks steps={videoSteps} active={state.step} />
           ) : (
             <p className="demo-node-note">
-              승인된 이미지로 LTX 영상 제작.
+              {t('승인된 이미지로 LTX 영상 제작.')}
               <br />
-              편집·자막·음악을 더하고 최종 검수.
+              {t('편집·자막·음악을 더하고 최종 검수.')}
             </p>
           )}
           <button
@@ -404,7 +415,7 @@ export function WorkflowDemo() {
               dispatch('approve');
             }}
           >
-            이 프레임 승인하고 제작
+            {t('이 프레임 승인하고 제작')}
           </button>
           <span className="demo-connector" aria-hidden="true">
             <ArrowRight size={22} />
@@ -415,15 +426,15 @@ export function WorkflowDemo() {
           <div className="demo-node-heading">
             <span>04</span>
             <h3 ref={resultHeading} tabIndex={-1}>
-              완성본
+              {t('완성본')}
             </h3>
-            <span className="demo-owner">결과</span>
+            <span className="demo-owner">{t('결과')}</span>
           </div>
           <div className="demo-result-slot">
             {state.phase === 'complete' ? (
               videoError ? (
                 <div className="demo-media-error" role="alert">
-                  <p>영상을 불러오지 못했습니다.</p>
+                  <p>{t('영상을 불러오지 못했습니다.')}</p>
                   <button
                     type="button"
                     className="demo-text-button"
@@ -432,7 +443,7 @@ export function WorkflowDemo() {
                       setVideoAttempt((value) => value + 1);
                     }}
                   >
-                    영상 다시 불러오기
+                    {t('영상 다시 불러오기')}
                   </button>
                 </div>
               ) : (
@@ -445,7 +456,7 @@ export function WorkflowDemo() {
                   width={720}
                   height={1280}
                   src={demoMedia.video}
-                  aria-label="헤어스타일 연출 콘텐츠 실제 완성본, 약 22초"
+                  aria-label={t('헤어스타일 연출 콘텐츠 실제 완성본, 약 22초')}
                   aria-describedby="demo-video-description"
                   onError={() => setVideoError(true)}
                 >
@@ -463,38 +474,38 @@ export function WorkflowDemo() {
                   <Play size={26} aria-hidden="true" />
                 </span>
                 <span>
-                  <LockKeyhole size={13} aria-hidden="true" /> 완성본에서 재생할
-                  수 있습니다
+                  <LockKeyhole size={13} aria-hidden="true" />
+                  {t(' 완성본에서 재생할 수 있습니다')}
                 </span>
               </div>
             )}
           </div>
           <p className="demo-node-note">
-            22초 · 세로 9:16 · 20개 구간
+            {t('22초 · 세로 9:16 · 20개 구간')}
             <br />
-            사용자가 재생한 뒤에만 영상 로딩.
+            {t('사용자가 재생한 뒤에만 영상 로딩.')}
           </p>
         </article>
       </div>
       <div className="demo-status-row">
         <output aria-live="polite" aria-atomic="true">
-          {dropNotice || announcements[state.phase]}
+          {t(dropNotice || announcements[state.phase])}
         </output>
         <span className="demo-replay-label">
           {isBusy
-            ? '약 3초의 설명용 애니메이션'
-            : '실제 생성 시간·평가 점수 아님'}
+            ? t('약 3초의 설명용 애니메이션')
+            : t('실제 생성 시간·평가 점수 아님')}
         </span>
       </div>
       <p className="demo-caption" id="demo-video-description">
-        영상: 두 인물이 실내에서 헤어스타일을 연출하는 콘텐츠. 영어 자막과 배경
-        음악이 포함되어 있습니다. 위 흐름은 제작 과정을 축약한 것으로, 한 장으로
-        전체 영상을 생성한 사례가 아닙니다.
+        {t(
+          '영상: 두 인물이 실내에서 헤어스타일을 연출하는 콘텐츠. 영어 자막과 배경 음악이 포함되어 있습니다. 위 흐름은 제작 과정을 축약한 것으로, 한 장으로 전체 영상을 생성한 사례가 아닙니다.',
+        )}
       </p>
       <noscript>
         <p>
-          제작 과정 체험에는 JavaScript가 필요합니다.{' '}
-          <a href={demoMedia.video}>기존 완성본 보기</a>
+          {t('제작 과정 체험에는 JavaScript가 필요합니다.')}{' '}
+          <a href={demoMedia.video}>{t('기존 완성본 보기')}</a>
         </p>
       </noscript>
     </section>

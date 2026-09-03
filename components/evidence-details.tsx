@@ -1,5 +1,7 @@
 'use client';
 
+import { useI18n } from '@/components/language-provider';
+
 import {
   Accordion,
   AccordionContent,
@@ -9,6 +11,7 @@ import {
 import { qualityGroups } from '@/data/case-study';
 
 export function QualityDetails() {
+  const { t } = useI18n();
   return (
     <Accordion
       multiple
@@ -19,16 +22,19 @@ export function QualityDetails() {
         <AccordionItem key={group.title} value={group.title}>
           <AccordionTrigger>
             <span>
-              {group.title}
-              <small>{group.items.length}개 항목</small>
+              {t(group.title)}
+              <small>
+                {t(group.items.length)}
+                {t('개 항목')}
+              </small>
             </span>
           </AccordionTrigger>
           <AccordionContent>
             <dl className="criteria-list">
               {group.items.map(([name, question]) => (
                 <div key={name}>
-                  <dt>{name}</dt>
-                  <dd>{question}</dd>
+                  <dt>{t(name)}</dt>
+                  <dd>{t(question)}</dd>
                 </div>
               ))}
             </dl>

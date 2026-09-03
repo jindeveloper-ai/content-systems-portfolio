@@ -106,15 +106,16 @@ test('executed analysis is separate from temporal experiments and unmeasured use
     assert.ok(text.includes(disclosure), disclosure);
 });
 
-test('the research addition is static copy with no private app connection or unapproved media', () => {
+test('the research copy supports language selection without a private app connection or unapproved media', () => {
   assert.doesNotMatch(
     section + home + JSON.stringify(attentionStudy),
     /app\.notion\.com|jindeveloper|127\.0\.0\.1|localhost|tailscale|\/home\/|\/Users\/|clova/i,
   );
   assert.doesNotMatch(
     section,
-    /use client|fetch\(|<video|<img|<iframe|<input|dangerouslySetInnerHTML/,
+    /fetch\(|XMLHttpRequest|WebSocket|<video|<img|<iframe|<input|dangerouslySetInnerHTML/,
   );
+  assert.ok(section.includes('const { t } = useI18n()'));
   assert.ok(
     text.includes('원본 분석 화면·로그·코드는 이 사이트에 공개하지 않습니다'),
   );
