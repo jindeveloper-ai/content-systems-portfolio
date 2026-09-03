@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     '콘텐츠 제작의 반복 과정을 구조화하고, 품질 기준과 승인 절차를 갖춘 AI 자동화를 설계합니다. 기획·설계·검수 주도, AI 협업 구현.',
   robots: { index: false, follow: false },
-  icons: { icon: '/favicon.svg' },
+  icons: { icon: { url: '/favicon.svg?v=sj-1', type: 'image/svg+xml' } },
 };
 
 export default function RootLayout({
