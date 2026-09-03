@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { SiteHeader, SiteFooter } from '@/components/site-shell';
 import { QualityDetails } from '@/components/evidence-details';
+import { AttentionStudy } from '@/components/attention-study';
 import {
   Table,
   TableBody,
@@ -63,7 +64,8 @@ export default function ContentAutomation() {
               <a href="#workflow">02 제작 체계</a>
               <a href="#quality">03 품질 평가</a>
               <a href="#validation">04 자동화 검증</a>
-              <a href="#outcomes">05 성과와 한계</a>
+              <a href="#attention-study">05 연구와 분석 도구</a>
+              <a href="#outcomes">06 성과와 한계</a>
             </nav>
             <a
               href="/evidence/verification.json"
@@ -425,8 +427,9 @@ export default function ContentAutomation() {
                 </div>
               </div>
             </section>
+            <AttentionStudy />
             <section id="outcomes" className="case-section">
-              <div className="section-kicker">05 / OUTCOMES & LIMITS</div>
+              <div className="section-kicker">06 / OUTCOMES & LIMITS</div>
               <h2>
                 확인한 것과,
                 <br />

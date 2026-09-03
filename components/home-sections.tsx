@@ -1,10 +1,32 @@
 import Link from '@/components/site-link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
-import { caseStudy } from '@/data/case-study';
+import { attentionStudy, caseStudy } from '@/data/case-study';
 
 export function HomeSections() {
   return (
     <>
+      <section
+        className="home-section research-teaser"
+        aria-labelledby="research-title"
+      >
+        <div>
+          <span className="eyebrow">RESEARCH → MAKING → REVIEW</span>
+          <h2 id="research-title">{attentionStudy.title}</h2>
+          <p className="research-role">{attentionStudy.role}</p>
+        </div>
+        <div>
+          <p className="research-summary">{attentionStudy.summary}</p>
+          <p className="research-boundary">
+            예측 주목도 ≠ 실제 시선 측정 ≠ 사용자 선호
+          </p>
+          <Link
+            className="text-link"
+            href={'/work/content-automation#' + attentionStudy.id}
+          >
+            연구에서 분석 도구로 <ArrowRight size={18} aria-hidden="true" />
+          </Link>
+        </div>
+      </section>
       <section
         id="approach"
         className="home-section"
