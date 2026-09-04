@@ -8,8 +8,8 @@ repos:
     hooks:
       - id: check-added-large-files
         args: [--maxkb=1024]
-        # One approved, losslessly packaged video; exact hash and 12 MB cap in native tests.
-        exclude: ^public/media/workflow-result\.mp4$
+        # Three approved source videos; exact hashes and size caps are enforced in native tests.
+        exclude: ^public/media/workflow-scene-0[1-3]\.mp4$
       - id: check-ast
       - id: check-json
       - id: check-merge-conflict

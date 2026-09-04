@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import {
   canDropDemoItem,
-  demoMedia,
+  demoMediaItems,
   demoStepDurationMs,
   frameSteps,
   initialDemoState,
@@ -31,9 +31,9 @@ const announcements = {
   idle: '레퍼런스 카드를 첫 프레임 칸으로 드래그하거나, 샘플로 시작 버튼을 누르세요.',
   reviewing: '첫 프레임 제작·검수 과정을 재현하고 있습니다. 약 3초가 걸립니다.',
   frameReady:
-    '실제 사용한 첫 프레임입니다. 확인 후 승인하고 영상 제작으로 이동하세요.',
+    '실제 사용한 첫 프레임 묶음입니다. 확인 후 승인하고 영상 제작으로 이동하세요.',
   producing: '승인 이후의 영상 제작·최종 검수 과정을 약 3초 동안 재현합니다.',
-  complete: '기존 완성본이 준비되었습니다. 재생 버튼으로 영상을 확인하세요.',
+  complete: '선택한 완성본이 준비되었습니다. 재생 버튼으로 영상을 확인하세요.',
 };
 
 function RecordedChecks({
@@ -68,6 +68,8 @@ function RecordedChecks({
 export function WorkflowDemo() {
   const { t } = useI18n();
   const [state, dispatch] = useReducer(transitionDemo, initialDemoState);
+  const [selectedMediaId, setSelectedMediaId] =
+    useState<(typeof demoMediaItems)[number]['id']>('01');
   const [reducedMotion, setReducedMotion] = useState(false);
   const [draggedItem, setDraggedItem] = useState<string | null>(null);
   const [dropNotice, setDropNotice] = useState('');
@@ -79,6 +81,9 @@ export function WorkflowDemo() {
   const referenceButton = useRef<HTMLButtonElement>(null);
   const approvalButton = useRef<HTMLButtonElement>(null);
   const resultHeading = useRef<HTMLHeadingElement>(null);
+  const selectedMedia =
+    demoMediaItems.find((item) => item.id === selectedMediaId) ??
+    demoMediaItems[0];
 
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -159,7 +164,21 @@ export function WorkflowDemo() {
     setDropNotice('');
     setFrameError(false);
     setVideoError(false);
+    setFrameAttempt(0);
+    setVideoAttempt(0);
     referenceButton.current?.focus({ preventScroll: true });
+  }
+
+  function selectMedia(mediaId: (typeof demoMediaItems)[number]['id']) {
+    if (mediaId === selectedMediaId) return;
+    setSelectedMediaId(mediaId);
+    dispatch('reset');
+    clearDrag();
+    setDropNotice('');
+    setFrameError(false);
+    setVideoError(false);
+    setFrameAttempt(0);
+    setVideoAttempt(0);
   }
 
   return (
@@ -174,7 +193,7 @@ export function WorkflowDemo() {
           <span className="demo-kicker">
             {t('INTERACTIVE CASE · 제작 과정 체험')}
           </span>
-          <h2 id="demo-title">{t('하나의 프레임이 영상이 되기까지')}</h2>
+          <h2 id="demo-title">{t('승인한 프레임이 영상이 되기까지')}</h2>
         </div>
         <div className="demo-toolbar">
           <button
@@ -205,6 +224,24 @@ export function WorkflowDemo() {
           '실제 제작 기록을 재현한 체험입니다. 실시간 AI 생성·파일 업로드는 하지 않습니다.',
         )}
       </p>
+      <fieldset className="demo-scene-picker">
+        <legend>{t('체험할 장면 선택')}</legend>
+        <div className="demo-scene-options">
+          {demoMediaItems.map((item) => (
+            <label key={item.id}>
+              <input
+                type="radio"
+                name="workflow-scene"
+                value={item.id}
+                checked={selectedMediaId === item.id}
+                onChange={() => selectMedia(item.id)}
+              />
+              <span>{t(item.pickerLabel)}</span>
+            </label>
+          ))}
+        </div>
+        <p>{t('장면을 바꾸면 체험은 처음 단계로 돌아갑니다.')}</p>
+      </fieldset>
       <div
         className="demo-board"
         onDragOver={(event) => event.preventDefault()}
@@ -243,7 +280,7 @@ export function WorkflowDemo() {
             <span className="demo-file-icon">
               <Film size={31} strokeWidth={1.4} aria-hidden="true" />
             </span>
-            <strong>reference.mp4</strong>
+            <strong>{t(selectedMedia.pickerLabel)}</strong>
             <span>{t('준비된 레퍼런스 카드')}</span>
             <span className="demo-drag-hint">
               <Grip size={14} aria-hidden="true" />
@@ -268,7 +305,7 @@ export function WorkflowDemo() {
         >
           <div className="demo-node-heading">
             <span>02</span>
-            <h3>{t('첫 프레임')}</h3>
+            <h3>{t('프레임 세트')}</h3>
             <span className="demo-owner">{t('AI · 검수')}</span>
           </div>
           <div className="demo-frame-slot">
@@ -294,19 +331,27 @@ export function WorkflowDemo() {
                   onDragStart={(event) => startDrag(event, 'frame')}
                   onDragEnd={clearDrag}
                 >
-                  <Image
-                    key={frameAttempt}
-                    src={demoMedia.frame}
-                    width={720}
-                    height={1280}
-                    alt={t(
-                      '실내에서 두 인물이 헤어스타일을 연출하는, 첫 구간 제작에 사용한 이미지',
-                    )}
-                    className="demo-first-frame"
-                    unoptimized
-                    draggable={false}
-                    onError={() => setFrameError(true)}
-                  />
+                  <div
+                    className="demo-first-frame-set"
+                    data-layout={
+                      selectedMedia.frames.length > 1 ? 'sequence' : 'single'
+                    }
+                  >
+                    {selectedMedia.frames.map((frame, index) => (
+                      <Image
+                        key={`${selectedMedia.id}-${frameAttempt}-${frame.src}`}
+                        src={frame.src}
+                        width={720}
+                        height={1280}
+                        alt={t(frame.alt)}
+                        className="demo-first-frame"
+                        unoptimized
+                        draggable={false}
+                        onError={() => setFrameError(true)}
+                        priority={index === 0}
+                      />
+                    ))}
+                  </div>
                 </div>
               )
             ) : (
@@ -335,9 +380,9 @@ export function WorkflowDemo() {
             <p className="demo-node-note">
               {hasFrame ? (
                 <>
-                  {t('실제 사용한 첫 프레임')}
+                  {t('선택한 클립의 실제 첫 프레임 묶음')}
                   <br />
-                  <strong>{t('총 20개 구간 중 첫 구간 예시')}</strong>
+                  <strong>{t(selectedMedia.detailLabel)}</strong>
                 </>
               ) : (
                 <>
@@ -376,7 +421,7 @@ export function WorkflowDemo() {
             !frameError
           }
           onDrop={(event) => dropItem(event, 'production')}
-          aria-label={t('승인하고 영상 제작: 첫 프레임을 놓는 곳')}
+          aria-label={t('승인하고 영상 제작: 프레임 세트를 놓는 곳')}
         >
           <div className="demo-node-heading">
             <span>03</span>
@@ -392,7 +437,7 @@ export function WorkflowDemo() {
                 ? t('영상 제작 과정 재현 중')
                 : state.phase === 'complete'
                   ? t('제작 과정의 승인 경계')
-                  : t('이 프레임으로 만들까요?')}
+                  : t('이 프레임 세트로 만들까요?')}
             </strong>
             <span>{t('사람이 확인해야 다음 단계로')}</span>
           </div>
@@ -400,7 +445,7 @@ export function WorkflowDemo() {
             <RecordedChecks steps={videoSteps} active={state.step} />
           ) : (
             <p className="demo-node-note">
-              {t('승인된 이미지로 LTX 영상 제작.')}
+              {t('승인된 프레임 세트로 LTX 영상 제작.')}
               <br />
               {t('편집·자막·음악을 더하고 최종 검수.')}
             </p>
@@ -415,7 +460,7 @@ export function WorkflowDemo() {
               dispatch('approve');
             }}
           >
-            {t('이 프레임 승인하고 제작')}
+            {t('이 프레임 세트 승인하고 제작')}
           </button>
           <span className="demo-connector" aria-hidden="true">
             <ArrowRight size={22} />
@@ -448,21 +493,21 @@ export function WorkflowDemo() {
                 </div>
               ) : (
                 <video
-                  key={videoAttempt}
+                  key={`${selectedMedia.id}-${videoAttempt}`}
                   controls
                   playsInline
                   preload="none"
-                  poster={demoMedia.frame}
+                  poster={selectedMedia.frames[0].src}
                   width={720}
                   height={1280}
-                  src={demoMedia.video}
-                  aria-label={t('헤어스타일 연출 콘텐츠 실제 완성본, 약 22초')}
+                  src={selectedMedia.video}
+                  aria-label={t(selectedMedia.videoAriaLabel)}
                   aria-describedby="demo-video-description"
                   onError={() => setVideoError(true)}
                 >
                   <track
                     kind="captions"
-                    src="/media/workflow-captions.vtt"
+                    src={selectedMedia.captions}
                     srcLang="en"
                     label="English · music and on-screen text"
                   />
@@ -481,7 +526,7 @@ export function WorkflowDemo() {
             )}
           </div>
           <p className="demo-node-note">
-            {t('22초 · 세로 9:16 · 20개 구간')}
+            {t(selectedMedia.detailLabel)}
             <br />
             {t('사용자가 재생한 뒤에만 영상 로딩.')}
           </p>
@@ -498,14 +543,15 @@ export function WorkflowDemo() {
         </span>
       </div>
       <p className="demo-caption" id="demo-video-description">
+        {t(selectedMedia.description)}{' '}
         {t(
-          '영상: 두 인물이 실내에서 헤어스타일을 연출하는 콘텐츠. 영어 자막과 배경 음악이 포함되어 있습니다. 위 흐름은 제작 과정을 축약한 것으로, 한 장으로 전체 영상을 생성한 사례가 아닙니다.',
+          '영어 화면 문구와 배경 음악이 포함되어 있습니다. 위 흐름은 실제 제작 과정을 축약한 것으로, 한 장의 이미지가 전체 영상을 한 번에 만든 사례가 아닙니다.',
         )}
       </p>
       <noscript>
         <p>
           {t('제작 과정 체험에는 JavaScript가 필요합니다.')}{' '}
-          <a href={demoMedia.video}>{t('기존 완성본 보기')}</a>
+          <a href={demoMediaItems[0].video}>{t('첫 번째 완성본 보기')}</a>
         </p>
       </noscript>
     </section>
