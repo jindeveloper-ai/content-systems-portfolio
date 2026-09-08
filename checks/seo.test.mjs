@@ -60,6 +60,18 @@ test('crawler discovery lists only the three canonical pages, with PDF crawling 
   );
 });
 
+test('the homepage serves the public Google ownership proof in its initial HTML', () => {
+  const html = readBuild('index.html');
+  const verification = tags(html, 'meta').filter(
+    (tag) => tag.name === 'google-site-verification',
+  );
+  assert.equal(verification.length, 1);
+  assert.ok(verification[0].content.length > 20);
+  assert.ok(
+    html.indexOf('name="google-site-verification"') < html.indexOf('</head>'),
+  );
+});
+
 test('static header rules exclude only resumes from indexing and preserve asset caching', () => {
   const headers = readBuild('_headers');
   assert.match(headers, /\/resume\/\*\n\s+X-Robots-Tag: noindex/);
