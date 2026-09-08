@@ -15,11 +15,13 @@ const pages = [
   ],
 ];
 const tags = (html, name) =>
-  [...html.matchAll(new RegExp('<' + name + '\\s[^>]*>', 'g'))].map(([tag]) =>
-    Object.fromEntries(
-      [...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map((m) => [m[1], m[2]]),
-    ),
-  );
+  [...html.matchAll(/<(meta|link)\s[^>]*>/g)]
+    .filter(([, tagName]) => tagName === name)
+    .map(([tag]) =>
+      Object.fromEntries(
+        [...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map((m) => [m[1], m[2]]),
+      ),
+    );
 
 for (const [path, title] of pages) {
   test('crawler HTML has distinct, indexable metadata: ' + path, () => {
