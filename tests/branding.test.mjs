@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 
-test('existing site and page titles are preserved', () => {
+test('approved SEO titles retain the visible Content Systems branding', () => {
   const layout = readFileSync(
     new URL('../app/layout.tsx', import.meta.url),
     'utf8',
@@ -16,9 +16,9 @@ test('existing site and page titles are preserved', () => {
     'utf8',
   );
   assert.ok(
-    layout.includes("title: 'Content Systems | AI 콘텐츠 자동화 포트폴리오'"),
+    layout.includes("title: 'SU JIN LEE | AI Content Automation Portfolio'"),
   );
-  assert.ok(detail.includes('콘텐츠 제작 자동화 | Content Systems'));
+  assert.ok(detail.includes('AI Content Automation Case Study | SU JIN LEE'));
   assert.ok(shell.includes('Content Systems 홈'));
   assert.doesNotMatch(layout + detail + shell, /portpolio/);
 });

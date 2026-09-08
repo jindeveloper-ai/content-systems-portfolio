@@ -472,5 +472,7 @@
   "1페이지": "1 page",
   "새 탭에서 보기": "Open in new tab",
   "PDF 다운로드": "Download PDF",
-  "상단 언어 선택에 맞는 레쥬메가 표시됩니다.": "The resume follows the language selected in the header."
+  "상단 언어 선택에 맞는 레쥬메가 표시됩니다.": "The resume follows the language selected in the header.",
+  "SU JIN LEE의 AI 콘텐츠 자동화 포트폴리오. 제작 시나리오와 승인 절차, 13개 품질 기준을 설계하고 AI와 협업해 구현한 사례를 소개합니다.": "SU JIN LEE's AI content automation portfolio: production scenarios, human approval steps and 13 quality criteria, designed and implemented in collaboration with AI.",
+  "기획부터 전달까지 10단계 콘텐츠 제작 체계를 설계한 사례. 모델 선택, API 연결, 사람의 승인과 품질 검수, 비운영 테스트의 근거와 한계를 설명합니다.": "A 10-stage content production case study covering model selection, API integration, human approval and quality review, with non-production test evidence and limitations."
 }

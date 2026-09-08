@@ -1,0 +1,7 @@
+# PDFs remain public. Crawlers must fetch them to read the noindex directive.
+/resume/*
+  X-Robots-Tag: noindex
+
+# Preserve the previous cache policy for content-hashed build assets.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable

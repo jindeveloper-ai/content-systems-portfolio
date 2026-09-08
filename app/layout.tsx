@@ -4,10 +4,11 @@ import { ThemeProvider } from '@/components/theme-provider';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Content Systems | AI 콘텐츠 자동화 포트폴리오',
+  title: 'SU JIN LEE | AI Content Automation Portfolio',
   description:
-    '콘텐츠 제작의 반복 과정을 구조화하고, 품질 기준과 승인 절차를 갖춘 AI 자동화를 설계합니다. 기획·설계·검수 주도, AI 협업 구현.',
-  robots: { index: false, follow: false },
+    'SU JIN LEE의 AI 콘텐츠 자동화 포트폴리오. 제작 시나리오와 승인 절차, 13개 품질 기준을 설계하고 AI와 협업해 구현한 사례를 소개합니다.',
+  robots: { index: true, follow: true },
+  alternates: { canonical: 'https://su-jin-lee-portfolio.pages.dev/' },
   icons: { icon: { url: '/favicon.svg?v=sj-1', type: 'image/svg+xml' } },
 };
 

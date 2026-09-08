@@ -1,6 +1,6 @@
 # Content Systems portfolio
 
-익명화한 AI 콘텐츠 자동화 사례를 설명하는 한국어 정적 포트폴리오. `/`와 `/work/content-automation` 두 페이지입니다. 외부 API·DB·게시 기능은 없습니다.
+AI 콘텐츠 자동화 사례와 작업 이력을 설명하는 KO / EN 정적 포트폴리오. `/`, `/about/`, `/work/content-automation/` 세 페이지입니다. 외부 API·DB·게시 기능은 없습니다.
 
 ## 개발
 
@@ -14,6 +14,7 @@ npm run typecheck
 npm run lint
 npm run format -- --check
 npm run build
+npm run test:seo
 prek run --all-files
 ```
 
@@ -21,9 +22,11 @@ prek run --all-files
 
 ## 공개 경계
 
-기획·설계·검수 주도 / AI 협업 구현. 합성 테스트는 운영 성과가 아닙니다. 학력·기여도·성과를 추정하지 않습니다. 비공개 근거·지원 준비 문서는 이 저장소 밖에서 관리합니다. 첫 배포는 owner-only이며 공개 전환은 별도 승인 사항입니다. `noindex`는 검색 수집 설정이지 접근 제어가 아닙니다.
+기획·설계·검수 주도 / AI 협업 구현. 합성 테스트는 운영 성과가 아닙니다. 학력·기여도·성과를 추정하지 않습니다. HTML에는 학력을 싣지 않으며, About의 경력명·연락처와 `public/resume/`의 원본 PDF 두 개는 사용자가 공개 승인했습니다. PDF는 언어에 맞춰 연결하고 해시로 원본 동일성을 검사합니다. 비공개 근거·지원 준비 문서는 이 저장소 밖에서 관리합니다.
 
-Sites 프로젝트 ID는 `.openai/hosting.json`의 값을 재사용합니다. 자격증명·`.env`·원본 파일·소스맵은 배포하지 않습니다. 배포 전 Gitleaks 및 변경에 따른 보안 검사를 실행합니다.
+공개 기본 주소는 https://su-jin-lee-portfolio.pages.dev/ 이며 기존 Sites 주소는 미러로 유지합니다. 각 페이지의 canonical(검색엔진에 알리는 대표 주소)은 해당 Cloudflare 경로를 가리킵니다. 최초 정적 HTML은 한국어이며 별도 언어 URL이 없으므로 hreflang은 사용하지 않습니다. `public/robots.txt`와 `public/sitemap.xml`은 세 페이지를 안내합니다. `public/_headers`는 PDF에만 `X-Robots-Tag: noindex`를 설정하고 기존 정적 자산 캐시를 보존합니다. 호스팅별 실제 응답을 배포 후 확인해야 합니다. `noindex`는 접근 제어가 아니며 PDF는 계속 공개됩니다.
+
+Sites 프로젝트 ID는 `.openai/hosting.json`의 값을 재사용합니다. 자격증명·`.env`·비공개 원본 미디어·소스맵은 배포하지 않습니다. 배포 전 Gitleaks 및 변경에 따른 보안 검사를 실행합니다.
 
 ## 참고·라이선스
 
