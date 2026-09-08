@@ -22,6 +22,7 @@ const views = [
   'components/theme-provider.tsx',
   'components/home-sections.tsx',
   'components/attention-study.tsx',
+  'components/actual-problems.tsx',
   'components/evidence-details.tsx',
   'components/workflow-demo.tsx',
 ];
@@ -122,6 +123,7 @@ test('all current page, workflow and research copy has an English entry', () => 
     'lib/resume.ts',
     'app/work/content-automation/layout.tsx',
     'data/case-study.ts',
+    'data/actual-problems.ts',
     'lib/workflow-demo.ts',
   ];
   for (const file of files) {

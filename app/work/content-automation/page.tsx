@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { SiteHeader, SiteFooter } from '@/components/site-shell';
 import { QualityDetails } from '@/components/evidence-details';
+import { ActualProblems } from '@/components/actual-problems';
 import { AttentionStudy } from '@/components/attention-study';
 import {
   Table,
@@ -62,6 +63,7 @@ export default function ContentAutomation() {
             <span className="mini-label">IN THIS CASE</span>
             <nav aria-label={t('사례 목차')}>
               <a href="#problem">{t('01 문제와 역할')}</a>
+              <a href="#actual-problems">{t('실제 문제와 개선')}</a>
               <a href="#workflow">{t('02 제작 체계')}</a>
               <a href="#quality">{t('03 품질 평가')}</a>
               <a href="#validation">{t('04 자동화 검증')}</a>
@@ -146,6 +148,7 @@ export default function ContentAutomation() {
                 </p>
               </div>
             </section>
+            <ActualProblems />
             <section id="workflow" className="case-section">
               <div className="section-kicker">
                 02 / WORKFLOW{' '}
