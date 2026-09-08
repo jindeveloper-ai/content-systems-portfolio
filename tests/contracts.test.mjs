@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
 import {
   assessEvidence,
   selectRetryItems,
@@ -82,7 +83,7 @@ test('published evidence separates synthetic inputs and unmeasured production me
     if (key !== 'status') assert.equal(value, null);
 });
 test('public copy and assets contain no private workspace identifiers', () => {
-  for (const directory of ['app', 'components', 'data', 'public']) {
+  for (const directory of ['app', 'components', 'data', 'lib', 'public']) {
     const root = new URL('../' + directory + '/', import.meta.url);
     for (const file of readdirSync(root, {
       recursive: true,
@@ -91,8 +92,20 @@ test('public copy and assets contain no private workspace identifiers', () => {
       if (!file.isFile() || !/\.(tsx?|css|json|mjs|txt|md)$/.test(file.name))
         continue;
       const text = readFileSync(file.parentPath + '/' + file.name, 'utf8');
+      // The approved About page publishes the employer and personal GitHub URL.
+      // Only these exact values at their designated locations are exempted.
+      const relativeFile = join(file.parentPath, file.name).slice(
+        new URL('../', import.meta.url).pathname.length,
+      );
+      const permitted = {
+        'app/about/page.tsx': '<h3>Mel</h3>',
+        'lib/resume.ts': 'https://github.com/jindeveloper-ai',
+      };
+      const reviewedText = Object.hasOwn(permitted, relativeFile)
+        ? text.replace(permitted[relativeFile], '')
+        : text;
       assert.doesNotMatch(
-        text,
+        reviewedText,
         /\/Users\/|OneDrive|CloudStorage|app\.notion\.com|reel-post-automation|jindeveloper|Gabby|\bMel\b|\bDante\b|\bmel[-_/]/i,
         file.name,
       );

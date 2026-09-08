@@ -89,18 +89,20 @@ export function LanguageSwitcher() {
       <button
         type="button"
         lang="ko"
+        aria-label="한국어"
         aria-pressed={locale === 'ko'}
         onClick={() => selectLocale('ko')}
       >
-        한국어
+        KO
       </button>
       <button
         type="button"
         lang="en"
+        aria-label="English"
         aria-pressed={locale === 'en'}
         onClick={() => selectLocale('en')}
       >
-        English
+        EN
       </button>
     </fieldset>
   );

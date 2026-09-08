@@ -136,8 +136,8 @@ export function HomeSections() {
               <dd>{t('승인 경계 · 검토 가능한 근거 · 책임 있는 전달')}</dd>
             </div>
           </dl>
-          <Link className="text-link" href="/work/content-automation">
-            {t('대표 사례에서 더 알아보기')}{' '}
+          <Link className="text-link" href="/about/">
+            {t('소개와 레쥬메 보기')}{' '}
             <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </div>

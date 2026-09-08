@@ -74,18 +74,20 @@ export function ThemeSwitcher() {
       <button
         type="button"
         aria-pressed={theme === 'light'}
+        aria-label={t('화이트')}
+        title={t('화이트')}
         onClick={() => selectTheme('light')}
       >
         <Sun size={16} aria-hidden="true" />
-        <span>{t('화이트')}</span>
       </button>
       <button
         type="button"
         aria-pressed={theme === 'dark'}
+        aria-label={t('블랙')}
+        title={t('블랙')}
         onClick={() => selectTheme('dark')}
       >
         <Moon size={16} aria-hidden="true" />
-        <span>{t('블랙')}</span>
       </button>
     </fieldset>
   );

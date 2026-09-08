@@ -32,7 +32,7 @@ export function SiteHeader() {
           <nav aria-label={t('주요 메뉴')}>
             <Link href="/#work">{t('프로젝트')}</Link>
             <Link href="/#approach">{t('작업 방식')}</Link>
-            <Link href="/#about">
+            <Link href="/about/">
               {t('소개 ')}
               <ArrowUpRight size={14} aria-hidden="true" />
             </Link>

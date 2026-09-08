@@ -16,6 +16,7 @@ import {
 
 const views = [
   'app/page.tsx',
+  'app/about/page.tsx',
   'app/work/content-automation/page.tsx',
   'components/site-shell.tsx',
   'components/theme-provider.tsx',
@@ -117,6 +118,8 @@ test('all current page, workflow and research copy has an English entry', () => 
   const files = [
     ...views,
     'app/layout.tsx',
+    'app/about/layout.tsx',
+    'lib/resume.ts',
     'app/work/content-automation/layout.tsx',
     'data/case-study.ts',
     'lib/workflow-demo.ts',
