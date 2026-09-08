@@ -117,11 +117,11 @@ test('approved media are exact reviewed assets, bounded in size, and anonymously
     'workflow-scene-03-frame-01.webp':
       'c8af3c4a735b91ec6894647bec7e5284062eeab5a9b3d9d006ed940c28736f46',
     'workflow-scene-01.mp4':
-      'a0d01bf1a935582f09c2c24b6aafc89b6ea2fd892d01403f595332dc7f3a53f9',
+      'f9dfc17e4d107946b8d984c338df48e2e004722ebe1bb1a369be83af4bc15f04',
     'workflow-scene-02.mp4':
-      '368ebc4f01d7a7465212ff973d3326bfc30c1568a125d58b8214c8de15efeb63',
+      '64c13cbe71f56b991f2d79027b019bcc0c96d8644333fd3a1703f41337ca0c15',
     'workflow-scene-03.mp4':
-      '0d32e55ef67861ae54c50e93fca32159b9d96d082aba6f4f710b6b0f5d845d4c',
+      '8f1bf0a9dbcdcee6d8537804cd251722b50afa8630e61f43d60a535fc064abf8',
   };
   const frames = demoMediaItems.flatMap((item) => item.frames);
   const videos = demoMediaItems.map((item) => item.video);
@@ -151,7 +151,7 @@ test('approved media are exact reviewed assets, bounded in size, and anonymously
     buffers.push(buffer);
     totalVideoBytes += buffer.length;
     assert.equal(sha(buffer), expectedHashes[name]);
-    assert.ok(buffer.length <= 8_000_000, `${name}: 8 MB video budget`);
+    assert.ok(buffer.length <= 3_000_000, `${name}: 3 MB video budget`);
     const atoms = [];
     for (let offset = 0; offset < buffer.length;) {
       const size = buffer.readUInt32BE(offset);
@@ -166,7 +166,7 @@ test('approved media are exact reviewed assets, bounded in size, and anonymously
       `${name}: fast-start metadata precedes video data`,
     );
   }
-  assert.ok(totalVideoBytes <= 14_000_000, 'combined video budget: 14 MB');
+  assert.ok(totalVideoBytes <= 5_200_000, 'combined video budget: 5.2 MB');
   for (const asset of buffers)
     assert.doesNotMatch(
       asset.toString('latin1'),
