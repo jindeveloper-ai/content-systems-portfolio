@@ -348,7 +348,7 @@ export function WorkflowDemo() {
                         unoptimized
                         draggable={false}
                         onError={() => setFrameError(true)}
-                        priority={index === 0}
+                        preload={index === 0}
                       />
                     ))}
                   </div>

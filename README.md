@@ -30,6 +30,8 @@ Sites 프로젝트 ID는 `.openai/hosting.json`의 값을 재사용합니다. �
 
 ## 참고·라이선스
 
+`app/vendor/shadcn-tailwind.css`는 기존 `shadcn@4.18.0`의 `dist/tailwind.css`를 변경 없이 보존한 MIT 자료입니다. 허가문은 같은 폴더의 `SHADCN-LICENSE.md`에 있습니다. 실행에 필요한 스타일만 유지하고 사용하지 않는 코드 생성 CLI와 그 의존성을 설치 대상에서 제외했습니다.
+
 [Magic UI Portfolio](https://github.com/magicuidesign/portfolio)의 간결한 프로젝트 탐색 방식을 참고했습니다. 템플릿 코드·제작자 경력·사진은 복사하지 않았습니다. 원본은 [MIT](https://raw.githubusercontent.com/magicuidesign/portfolio/main/LICENSE), copyright 2024 Dillion Verma입니다. Sites의 React·TypeScript·shadcn 기본 구성을 사용하며 패키지별 라이선스는 각 배포본에 유지됩니다.
 
 자동 검증 설정은 `project-validation-bootstrap`으로 관리합니다. Serena 메모 참조 확인: `serena memories check`.
