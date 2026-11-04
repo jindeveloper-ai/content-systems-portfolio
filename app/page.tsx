@@ -7,6 +7,7 @@ import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
 import { SiteHeader, SiteFooter } from '@/components/site-shell';
 import { HomeSections } from '@/components/home-sections';
 import { WorkflowDemo } from '@/components/workflow-demo';
+import { DeveloperProjects } from '@/components/developer-projects';
 
 export default function Home() {
   const { t } = useI18n();
@@ -23,20 +24,20 @@ export default function Home() {
           </div>
           <div className="hero-grid">
             <h1 id="intro-title">
-              {t('콘텐츠를 만들고,')}
+              {t('콘텐츠 제작과 AI 채팅을 위한')}
               <br />
-              {t('만드는 방식을 ')}
-              <em>{t('설계합니다.')}</em>
+              {t('웹 도구를 만듭니다.')}
             </h1>
             <div className="hero-note">
               <p>{t('기획 · 설계 · 검수 주도 / AI 협업 구현')}</p>
-              <a className="text-link" href="#work">
-                {t('대표 프로젝트 살펴보기')}{' '}
+              <a className="text-link" href="#developer-projects">
+                {t('개발 프로젝트 보기')}{' '}
                 <ArrowRight size={19} aria-hidden="true" />
               </a>
             </div>
           </div>
         </section>
+        <DeveloperProjects />
         <WorkflowDemo />
         <section
           id="work"

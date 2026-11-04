@@ -30,7 +30,7 @@ export function SiteHeader() {
         </Link>
         <div className="header-controls">
           <nav aria-label={t('주요 메뉴')}>
-            <Link href="/#work">{t('프로젝트')}</Link>
+            <Link href="/#developer-projects">{t('프로젝트')}</Link>
             <Link href="/#approach">{t('작업 방식')}</Link>
             <Link href="/about/">
               {t('소개 ')}
